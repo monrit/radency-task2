@@ -1,9 +1,9 @@
 import { Table, TableContainer } from "@mui/material";
 import { FC } from "react";
 import Head from "../shared/Head/Head";
-import Body from "../shared/Body/Body";
 import { NOTES_HEADERS, NOTES_PROPERTIES } from "../../constants/constants";
 import { useAppSelector } from "../../hooks/redux";
+import Body from "./Body/Body";
 
 type NotesTablePropsType = {
     archive?: boolean;
@@ -19,7 +19,6 @@ const NotesTable: FC<NotesTablePropsType> = ({ archive }) => {
                 <Body
                     columns={NOTES_PROPERTIES}
                     rows={notes.filter(note => note.isArchived === Boolean(archive))}
-                    withActions
                 />
             </Table>
         </TableContainer>

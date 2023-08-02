@@ -9,3 +9,12 @@ export type NoteType = {
 };
 
 export type AllowedNoteKeysType = keyof Omit<NoteType, "id" | "isArchived">;
+
+export type FormFieldType = "name" | "category" | "content";
+
+export type FormFieldsType = {
+    label: string;
+    field:  FormFieldType;
+};
+
+export type FormInputsType = Pick<NoteType, "name" | "category" | "content">;

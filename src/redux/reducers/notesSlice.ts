@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { NoteType } from "../../types/types";
+import { parseDates } from "../../utils/parseDates";
 
 type NotesStateType = {
     notes: Array<NoteType>;
@@ -66,19 +67,25 @@ const initialState: NotesStateType = {
             name: "Wash car with body shampoo",
             created: 1690890235946,
             category: "Idea",
-            content: "Could be the nicest idea ever! Or the worst one...",
+            content: "Could be the nicest idea ever! Or be the worst one...",
             dates: [],
             isArchived: false,
         },
     ],
 };
 
-export const notesSlice = createSlice({
+const notesSlice = createSlice({
     name: "notes",
     initialState,
     reducers: {
-        addNote(state, action: PayloadAction<NoteType>) {
-            state.notes.push(action.payload);
+        addNote(state, action: PayloadAction<Pick<NoteType, "name" | "category" | "content">>) {
+            state.notes.push({
+                ...action.payload,
+                id: state.notes[state.notes.length - 1].id + 1,
+                created: Date.now(),
+                isArchived: false,
+                dates: parseDates(action.payload.content),
+            });
         },
         deleteNote(state, action: PayloadAction<number>) {
             state.notes = state.notes.filter(note => note.id !== action.payload);
@@ -92,6 +99,7 @@ export const notesSlice = createSlice({
                     note.name = action.payload.name;
                     note.category = action.payload.category;
                     note.content = action.payload.content;
+                    note.dates = parseDates(action.payload.content);
                     break;
                 }
             }
@@ -106,5 +114,7 @@ export const notesSlice = createSlice({
         },
     },
 });
+
+export const notesSliceActions = notesSlice.actions;
 
 export default notesSlice.reducer;
