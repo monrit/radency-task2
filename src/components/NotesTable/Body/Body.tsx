@@ -1,4 +1,3 @@
-import { TableBody, TableCell, TableRow } from "@mui/material";
 import { FC } from "react";
 import { AllowedNoteKeysType, NoteType } from "../../../types/types";
 import ActionsButtons from "./ActionButtons/ActionButtons";
@@ -22,26 +21,20 @@ const conditionalValue = (column: AllowedNoteKeysType, row: NoteType): string =>
 
 const Body: FC<BodyPropsType> = ({ rows, columns }) => {
     return (
-        <TableBody>
+        <tbody>
             {rows.map(row => {
                 return (
-                    <TableRow hover tabIndex={-1} key={row.id}>
+                    <tr key={row.id} className="border-b border-b-gray-300 hover:bg-gray-100">
                         {columns.map(column => {
                             const value = conditionalValue(column, row);
                             return (
-                                <TableCell
+                                <td
                                     key={column + row.id}
-                                    sx={{
-                                        padding: "10px",
-                                        maxWidth: 200,
-                                        whiteSpace: "nowrap",
-                                        overflow: "hidden",
-                                        textOverflow: "ellipsis",
-                                    }}
                                     title={value}
+                                    className="py-2"
                                 >
                                     {value}
-                                </TableCell>
+                                </td>
                             );
                         })}
                         <ActionsButtons
@@ -51,10 +44,10 @@ const Body: FC<BodyPropsType> = ({ rows, columns }) => {
                             category={row.category}
                             content={row.content}
                         />
-                    </TableRow>
+                    </tr>
                 );
             })}
-        </TableBody>
+        </tbody>
     );
 };
 

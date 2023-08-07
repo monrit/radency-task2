@@ -15,7 +15,7 @@ export const formValidation: FormValidationType = {
         required: true,
     },
     content: {
-        required: "Field is required",
+        required: "Content field is required",
         minLength: {
             value: 2,
             message: "Too short content"

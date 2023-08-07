@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { TableBody, TableRow, TableCell } from "@mui/material";
 import { countByCategory } from "../../../utils/countByCategory";
 import { useAppSelector } from "../../../hooks/redux";
 import { NoteType } from "../../../types/types";
@@ -12,25 +11,25 @@ const StatsBody: FC<StatsBodyPropsType> = ({ categories }) => {
     const notes = useAppSelector(store => store.notesReducer.notes);
 
     return (
-        <TableBody>
+        <tbody>
             {categories.map(category => {
                 return (
-                    <TableRow hover tabIndex={-1} key={category}>
+                    <tr key={category} className="border-b border-b-gray-300 hover:bg-gray-100">
                         {[0, 1, 2].map(row => {
                             return (
-                                <TableCell key={category + row} sx={{ padding: "10px" }}>
+                                <td key={category + row} className="py-2">
                                     {row === 0
                                         ? category
                                         : row === 1
                                         ? countByCategory(notes, category, false)
                                         : countByCategory(notes, category, true)}
-                                </TableCell>
+                                </td>
                             );
                         })}
-                    </TableRow>
+                    </tr>
                 );
             })}
-        </TableBody>
+        </tbody>
     );
 };
 

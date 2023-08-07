@@ -1,27 +1,13 @@
 import { FC } from "react";
 import NotesTable from "../NotesTable/NotesTable";
-import { Button } from "@mui/material";
 import StatsTable from "../StatsTable/StatsTable";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/redux";
 import { modalSliceActions } from "../../redux/reducers/modalSlice";
-import { Box } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 type MainPagePropsType = {
     archive?: boolean;
 };
-
-const theme = createTheme({
-    palette: {
-        info: {
-            main: "#616161",
-            light: "#8e8e8e",
-            dark: "#373737",
-            contrastText: "#ffffff",
-        },
-    },
-});
 
 const MainPage: FC<MainPagePropsType> = ({ archive }) => {
     const navigate = useNavigate();
@@ -29,26 +15,28 @@ const MainPage: FC<MainPagePropsType> = ({ archive }) => {
     const { openModal } = modalSliceActions;
 
     return (
-        <>
-            <Box display="flex" flexDirection="column" alignItems="end" gap="6px">
-                <NotesTable archive={archive} />
-                <Box display="flex" gap="8px">
-                    <Button variant="contained" onClick={() => dispatch(openModal())}>
-                        Add note
-                    </Button>
-                    <ThemeProvider theme={theme}>
-                        <Button
-                            variant={archive ? "contained" : "outlined"}
-                            color="info"
-                            onClick={() => navigate(archive ? "/" : "/archive")}
-                        >
-                            Archive
-                        </Button>
-                    </ThemeProvider>
-                </Box>
-            </Box>
+        <div className="p-2 flex flex-col">
+            <NotesTable archive={archive} />
+            <div className="flex mx-auto sm:ml-auto sm:mx-0 gap-2 my-2 w-full sm:w-auto">
+                <button
+                    onClick={() => dispatch(openModal())}
+                    className="bg-indigo-500 active:bg-indigo-600 hover:bg-indigo-400 hover:-translate-y-0.5 transform transition w-full sm:w-auto sm:px-5 py-2 rounded-lg text-white shadow-md border-2 border-transparent box-border"
+                >
+                    Add note
+                </button>
+                <button
+                    onClick={() => navigate(archive ? "/" : "/archive")}
+                    className={`${
+                        archive
+                            ? "bg-gray-500 hover:bg-white text-white hover:text-black"
+                            : "bg-white hover:bg-gray-500 hover:text-white"
+                    } active:bg-gray-600  hover:-translate-y-0.5 transform transition w-full sm:w-auto sm:px-5 py-2 rounded-lg  shadow-md border-2 border-gray-600 box-border`}
+                >
+                    Archive
+                </button>
+            </div>
             <StatsTable />
-        </>
+        </div>
     );
 };
 

@@ -1,21 +1,21 @@
-import { TableCell, TableHead, TableRow } from "@mui/material";
 import { FC } from "react";
+import { HeaderType } from "../../../types/types";
 
 type HeadPropsType = {
-    columns: Array<string>;
+    columns: Array<HeaderType>;
 };
 
 const Head: FC<HeadPropsType> = ({ columns }) => {
     return (
-        <TableHead>
-            <TableRow>
+        <thead className="border-b-black border-b-2">
+            <tr>
                 {columns.map(column => (
-                    <TableCell key={column} sx={{ fontWeight: "bold" }}>
-                        {column}
-                    </TableCell>
+                    <th key={column.label} className={column.class + " text-start"}>
+                        {column.label}
+                    </th>
                 ))}
-            </TableRow>
-        </TableHead>
+            </tr>
+        </thead>
     );
 };
 

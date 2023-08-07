@@ -14,7 +14,12 @@ export type FormFieldType = "name" | "category" | "content";
 
 export type FormFieldsType = {
     label: string;
-    field:  FormFieldType;
+    field: FormFieldType;
 };
 
 export type FormInputsType = Pick<NoteType, "name" | "category" | "content">;
+
+export type HeaderType = {
+    label: string;
+    class: string;
+};
