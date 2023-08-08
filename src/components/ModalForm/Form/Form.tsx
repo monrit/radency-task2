@@ -2,17 +2,17 @@ import { FC, useEffect } from "react";
 import { formValidation } from "../validation";
 import { SELECT_OPTIONS } from "../../../constants/constants";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { FormInputsType } from "../../../types/types";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { EditObjectType, FormInputsType } from "../../../types/types";
+import { useAppDispatch } from "../../../hooks/redux";
 import { notesSliceActions } from "../../../redux/reducers/notesSlice";
 
 type FormPropsType = {
     open: boolean;
     onClose: () => void;
+    fieldValues: EditObjectType | null;
 };
 
-const Form: FC<FormPropsType> = ({ open, onClose }) => {
-    const fieldValues = useAppSelector(store => store.modalReducer.fields);
+const Form: FC<FormPropsType> = ({ open, onClose, fieldValues }) => {
     const dispatch = useAppDispatch();
 
     const { addNote, editNote } = notesSliceActions;
@@ -59,7 +59,7 @@ const Form: FC<FormPropsType> = ({ open, onClose }) => {
     }, [fieldValues, setValue]);
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 w-96">
                 <div className="flex flex-col">
                     <label htmlFor="name">Name</label>
                     <input

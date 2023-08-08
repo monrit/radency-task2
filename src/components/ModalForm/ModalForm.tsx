@@ -5,6 +5,7 @@ import Form from "./Form/Form";
 
 const ModalForm: FC = () => {
     const open = useAppSelector(store => store.modalReducer.open);
+    const fieldValues = useAppSelector(store => store.modalReducer.fields);
     const dispatch = useAppDispatch();
     const { closeModal } = modalSliceActions;
 
@@ -42,7 +43,7 @@ const ModalForm: FC = () => {
                 <h4 className="text-center font-bold">
                     Write your pretty, little <span className="text-indigo-500">note</span> &#10084;
                 </h4>
-                <Form open={open} onClose={onClose} />
+                <Form open={open} onClose={onClose} fieldValues={fieldValues} />
             </div>
         </div>
     );

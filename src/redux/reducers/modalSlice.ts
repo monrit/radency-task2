@@ -1,7 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { NoteType } from "../../types/types";
-
-type EditObjectType = Pick<NoteType, "id" | "name" | "category" | "content">;
+import { EditObjectType } from "../../types/types";
 
 type ModalStateType = {
     open: boolean;

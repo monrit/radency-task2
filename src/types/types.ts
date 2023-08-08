@@ -23,3 +23,5 @@ export type HeaderType = {
     label: string;
     class: string;
 };
+
+export type EditObjectType = Pick<NoteType, "id" | "name" | "category" | "content">;

@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import notesReducer from "./reducers/notesSlice";
 import modalReducer from "./reducers/modalSlice";
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
     notesReducer,
     modalReducer,
 });
@@ -12,6 +12,8 @@ export const setupStore = () => {
         reducer: rootReducer,
     });
 };
+
+export const store = setupStore();
 
 export type AppStateType = ReturnType<typeof rootReducer>;
 export type AppStoreType = ReturnType<typeof setupStore>;
